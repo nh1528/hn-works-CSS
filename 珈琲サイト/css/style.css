@@ -1,0 +1,1942 @@
+@charset "UTF-8";
+
+/*** 共通パーツ ***/
+
+html {
+  /* ページ全体に指定されるテキストの大きさを指定 */
+  font-size: 16px;
+}
+
+body {
+  /*  文字のサイズや文字色、フォントの設定  */
+  color: #624649;
+  font-size: 1rem;
+  font-family: " YuGothic", Yu Gothic, sans-serif;
+  box-sizing: border-box;
+}
+
+ul,
+li,
+ol {
+  /*  箇条書きの接頭記号は必須なわけではないので非表示→noneにしてるから  */
+  list-style-type: none;
+}
+
+a {
+  /*  URLなどテキストリンクにデフォルトでつく装飾を無効化、またCSSが適用されるまでの時間を設定  */
+  text-decoration: none;
+  transition: 0.6s;
+}
+
+a:hover {
+  /*  transitionプロパティはCSSが反映されるまでの時間を指定してるよ。マウスが当たったときにゆっくり色が変わるよ  */
+  opacity: 0.8;
+  transition: 0.6s;
+}
+
+.box-design {
+
+  background-color: #fff;
+  /* ボックスのデザイン部分を各エリアで使えるよう共有パーツとして設定 */
+
+}
+
+
+h1 {
+
+  font-family: 'Libre Baskerville', serif;
+  /* google fontから持ってきた設定 */
+
+  font-size: 4rem;
+
+  letter-spacing: 10px;
+  /* 文字の間隔を指定する。今回はカンプに合わせるために感覚を広げる */
+
+  color: #7d5226;
+
+  font-weight: normal;
+  /* 文字の太さを指定。h1タグは「見出し」だからデフォで太字→normalに変更 */
+
+  text-shadow: 0px 0px 4px #fff;
+  /* テキストに影つけるよ！4つの値はそれぞれ「平衡方向ずらし、垂直方向ずらし、ぼかし、色(+透明度)」 */
+
+  filter: drop-shadow(4px 2px 4px #fff);
+  /* 影やぼかしをつけられるプロパティ */
+
+
+}
+
+/* 紹介文のCSSは文字サイズ1rem,文字間隔0.8pxにする */
+.about-text {
+
+  font-size: 1rem;
+  letter-spacing: 0.8px;
+
+}
+
+
+.feature-wrapper,
+
+.life-wrapper,
+
+.lineup-wrapper,
+
+.package-wrapper,
+
+.store-wrapper {
+
+  display: flex;
+
+  flex-wrap: nowrap;
+
+  justify-content: space-between;
+
+}
+
+select {
+
+  -moz-appearance: menulist;
+
+  -webkit-appearance: menulist;
+
+  border-style: solid;
+
+  height: 28px;
+
+}
+
+select::-ms-expand {
+
+  display: block;
+  /* ::-ms-expandをつけることでInternet explorerを使用したときに反映される設定ができる */
+
+}
+
+
+
+/*  ↓サイトの横幅を決めて崩れるのをふせぐよ  */
+.container {
+  max-width: 1024px;
+  /* max-width:最大横幅 */
+
+
+  width: 90%;
+  /* width:横幅 */
+
+
+  margin: 0 auto;
+  /* autoにしておくことで自動的に左右の余白が均等、中央よりになるよ。5％ずつ空間があく */
+}
+
+/***グローバルナビゲーション***/
+.g-navi {
+  position: absolute;
+  /*position:要素の配置方法*/
+  background-color: #a67c52;
+  /*背景色*/
+  width: 100%;
+  /*画面幅いっぱいにしたよ*/
+}
+
+.g-navi ul {
+
+  display: flex;
+  /* Flexboxを利用するための設定 */
+
+  flex-wrap: nowrap;
+  /* Flexboxの中で子要素を折り返すか1列に詰めるかの設定 */
+
+  justify-content: space-around;
+  /* Flexboxの子要素を横並びにしたときの配置方法 */
+
+  align-items: center;
+  /* Flexboxの子要素をたてならびにしたときの配置方法 */
+
+}
+
+.g-navi ul li {
+
+  flex-basis: 16.6%;
+  /* flex-basis:flex子要素の横幅 */
+
+  text-align: center;
+
+}
+
+.g-navi ul li a {
+
+  display: block;
+  /* ① */
+
+  color: #fff;
+
+  padding: 20px 0;
+  /* メニュー上部色付けと幅設定 padding:内側の余白設定 */
+
+}
+
+/* 「メニューテキスト」にマウスオンした際のデザイン */
+
+.g-navi ul li a:hover {
+
+  color: #ccc;
+  /* マウスオン時に文字色を変化させる */
+
+  background-color: #bf9b76;
+  /* マウスオン時に背景色を変化させる */
+
+  opacity: 0.5;
+  /* マウスオン時に拝啓を投下させるためのopacityを設定するよ */
+
+}
+
+a:hover {
+  opacity: 0.8;
+  transition: 0.6s;
+}
+
+
+/* ファーストビュー */
+
+#main-visual {
+
+  background-image: url(../image/mv.jpg);
+  /* 背景画像を設定。画像パスはCSSファイルの一から指定 */
+
+  background-repeat: no-repeat;
+  /* 上の設定だけなら繰り返し表示しちゃうからno-repeatする */
+
+  background-size: cover;
+  /* 背景画像で背景全体を覆うために領域全体を指定 */
+
+  height: 100vh;
+  /* メインビジュアルエリアの高さを設定 */
+
+  max-height: 760px;
+  /* エリアの最大幅を設定するよ。見易さ考慮して背景画像の縦幅以上広がらないようにするよ。画像分760pxだからここを最大にしたよ */
+
+}
+
+
+
+
+/*ここからメインビジュアルのコーディングするよ*/
+.mv-wrapper {
+
+  position: relative;
+  /* 親要素に対して子要素を自由な場所に配置するため、親要素に対して配置設定「position」を相対的:relativeに設定 */
+
+  display: flex;
+
+  justify-content: center;
+
+}
+
+.mv-right {
+
+  position: absolute;
+  /* 親要素の中で絶対値で位置を決めるためのポジをアブに設定 */
+
+  top: 240px;
+  /* top,rightプロパティを使用して親要素の上端・右端からの距離を設定。 */
+
+  max-width: 100%;
+}
+
+
+.text {
+
+  font-family: 'Libre Baskerville', serif;
+
+  font-size: 1.625rem;
+
+  letter-spacing: 4px;
+
+  color: #7d5226;
+
+  text-align: center;
+
+  /* text-align:テキストの位置設定 */
+
+  filter: drop-shadow(4px 2px 4px #fff);
+
+  text-shadow: 0px 0px 4px #fff;
+
+  margin-bottom: 80px;
+  /* margin:外側の余白設定 */
+
+  padding: 15px 0 0 0;
+
+}
+
+.purchase-button {
+
+  text-align: center;
+  /* ボタン配置を中央寄せにして指定 */
+
+}
+
+.purchase-button a {
+
+  display: inline-block;
+
+  background-color: #7d5226;
+  /* 背景色設定 */
+
+  color: #fff;
+  /* 文字色を設定 */
+
+  padding: 15px 50px;
+  /* グローバルナビゲーションのテキストリンクをおおきくする */
+
+  font-size: 1.375rem;
+  /* 22px */
+
+}
+
+/* マウスオン時に背景色と文字色を変更する */
+
+.purchase-button a:hover {
+
+  background-color: #fff;
+
+  color: #955e64;
+
+}
+
+/*共通パーツ
+このsectionに対するCSS削除
+section {
+  エリア上下に余白をつける
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+*/
+
+#concept,
+#feature,
+#thought,
+#coffeelife,
+#lineup,
+#package,
+#store,
+#contact {
+
+  padding: 80px 0;
+
+}
+
+/* こだわりエリア */
+
+#feature {
+
+  background-color: #e4ecef;
+  /* エリアに水色の背景色を設定 */
+
+}
+
+/*.feature-wrapper {
+
+  display: flex;
+
+  flex-wrap: nowrap;
+  justify-content: space-between;
+
+}*/
+
+
+
+h2 {
+  font-size: 3rem;
+  /* htmlタグに対し16px、1rem=16px,
+    3remなら48px */
+  margin-bottom: -5px;
+  /* h2と.ja-titleの上下感覚を狭める */
+  font-family: 'Libre Baskerville', serif;
+  font-weight: normal;
+  letter-spacing: 4px;
+  /* 文字の調整 */
+  color: #7d5226;
+}
+
+.ja-title {
+
+  font-size: 1rem;
+  color: #7d5226;
+
+}
+
+.title {
+
+  text-align: center;
+  margin-bottom: 40px;
+
+}
+
+/* コンセプトエリア */
+
+.concept-copy {
+
+  text-align: center;
+
+}
+
+.main-copy {
+
+  font-size: 1.5rem;
+  margin-bottom: 50px;
+  font-weight: normal;
+
+}
+
+
+
+/* コンセプトエリア */
+/* pタグ間の余白を広げ、行間も1.8に設定 */
+
+.concept-text {
+
+  margin-bottom: 20px;
+  line-height: 1.8;
+
+}
+
+
+/* featureエリア */
+
+.feature-box {
+
+  max-width: 320px;
+  /* 大枠のコンテンツ幅は1024pxのため、3つ並んでもはみ出さないよう320pxという値に設定 */
+
+}
+
+.feature-box:nth-of-type(2) {
+
+  background-color: #fffde8;
+  /* 2つ目のボックスだけ背景色を黄色にする */
+
+}
+
+/*ボックスの画像とテキストエリアを調整するよ*/
+
+.feature-text {
+
+  padding: 20px 15px;
+  /* テキストエリア内側の余白調整 */
+
+}
+
+.feature-number {
+
+  font-size: 1.5rem;
+  /* 番号とタイトルの文字サイズ設定 */
+  letter-spacing: 2px;
+  font-family: 'Libre Baskerville', serif;
+  color: #7d5226;
+
+}
+
+.feature-title {
+
+  font-size: 1.375rem;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+}
+
+.feature-image {
+
+  max-width: 100%;
+
+}
+
+/*想いのエリア*/
+
+#thought {
+
+  background-color: #fff;
+  /* #thoughtエリアの背景色 */
+
+}
+
+.thought-container {
+
+  position: relative;
+  /* relative:相対的。親要素を基準に移動できるようになる */
+
+}
+
+.staff-box {
+
+  display: flex;
+  /* 画像とテキストを横並び */
+
+  flex-wrap: nowrap;
+  /* box内を折り返しなし */
+
+  justify-content: space-between;
+  /* 良橋を基準に均等の感覚で配置 */
+
+  background: #e0c5a8;
+
+  padding: 2rem;
+  /* ボックスの内側に余白 */
+
+}
+
+.staff-box {
+
+  display: none;
+
+}
+
+.staff-box.active {
+
+  display: flex;
+
+  flex-wrap: nowrap;
+
+  justify-content: space-between;
+
+  background: #e0c5a8;
+
+  padding: 2rem;
+
+}
+
+.staff-image {
+
+  display: block;
+
+  width: 48%;
+  /* テキストエリアと横並びにするために画像の横幅に少し余裕を持たせて48％設定する */
+
+}
+
+/*想いのテキストエリア*/
+.staff-text {
+
+  width: 48%;
+
+}
+
+/*テキストエリアの中身の設定*/
+.staff-title {
+
+  font-size: 1.375rem;
+
+  text-align: center;
+
+  margin-bottom: 30px;
+
+  font-weight: normal;
+
+}
+
+.staff-about {
+
+  margin-bottom: 20px;
+
+  padding: 20px;
+  background: #fff;
+
+}
+
+.staff-name {
+
+  text-align: right;
+
+}
+
+
+/*進む・戻るボタン設置*/
+.slide-button {
+
+  position: absolute;
+
+  top: 0;
+
+  bottom: 0;
+
+  display: block;
+
+  width: 48px;
+
+  height: 48px;
+
+  border-top: 2px solid #c0c0c0;
+
+  margin: auto;
+
+  cursor: pointer;
+  /*　pointer指の形(マウスオン時に表示されるカーソルの形) */
+
+  z-index: 1;
+  /* コンテンツの重ね順 1が後ろで9999が前 */
+
+}
+
+/*ボタンごとの設定*/
+.prev {
+
+  left: 10px;
+  /* 戻るボタンだから左側 */
+
+  border-left: 2px solid #c0c0c0;
+
+  transform: rotate(-45deg);
+  /* →の向き調整 -は半時計回り 45度回転 */
+
+}
+
+.next {
+
+  right: 10px;
+  /*次へのボタンだから右*/
+
+  border-right: 2px solid #c0c0c0;
+
+  transform: rotate(45deg);
+
+}
+
+/*ライフのエリアにグラデーション背景つけるよ*/
+
+#coffeelife {
+
+  background: linear-gradient(#e0c5a8, #e4ecef);
+
+}
+
+/*ライフボックス全体にflexbox設定するよ*/
+/*.life-wrapper {
+
+  display: flex;
+
+  flex-wrap: nowrap;
+
+  justify-content: space-between;
+
+}*/
+
+.life-type {
+
+  text-align: center;
+
+}
+
+.life-img {
+
+  width: 100%;
+
+  margin-bottom: 5px;
+
+}
+
+/*マウスオン時の動きをつけるよ*/
+.life-type a {
+
+  display: block;
+  padding: 10px;
+  color: #333;
+
+}
+
+.life-type a:hover {
+
+  color: #955E64;
+
+  box-shadow: 0 15px 30px -5px rgba(0, 0, 0, .15), 0 0 5px rgba(0, 0, 0, .1);
+
+}
+
+/*ラインナップメニュー*/
+.lineup-menu {
+
+  margin-bottom: 3rem;
+}
+
+.lineup-menu ul {
+
+  display: flex;
+
+  flex-wrap: nowrap;
+
+  justify-content: space-between;
+
+  border-bottom: 2px solid #a67c52;
+
+}
+
+.lineup-menu ul li {
+  width: 100%;
+  text-align: center;
+}
+
+.lineup-menu ul li a {
+
+  display: block;
+
+  color: #fff;
+
+  background-color: #e0c5a8;
+
+  border: 1px solid #fff;
+
+  border-bottom: none;
+
+  border-radius: 5px;
+
+  padding: 0.5rem 0;
+}
+
+.lineup-menu ul li a:hover {
+
+  color: #fff;
+
+  background-color: #a67c52;
+
+}
+
+/*マウスオン時と同じスタイル反映*/
+.lineup-menu ul li a.active {
+
+  color: #fff;
+
+  background-color: #a67c52;
+
+}
+
+/*横並びにする*/
+/*.lineup-wrapper {
+
+  display: flex;
+
+  flex-wrap: nowrap;
+
+  justify-content: space-between;
+
+}*/
+
+
+/* ラインナップエリア */
+
+.lineup-product {
+
+  flex-basis: 31%;
+
+}
+
+
+
+.lineup-image {
+
+  border-radius: 30px;
+  border: 1px dashed #a67c52;
+  padding: 4rem 0;
+  text-align: center;
+  margin-bottom: 20px;
+
+}
+
+.name-en {
+
+  font-size: 1.5rem;
+
+  font-weight: bold;
+
+}
+
+.lineup-text {
+
+  line-height: 1.8;
+
+}
+
+.more-lineup {
+
+  text-align: center;
+
+  margin-top: 60px;
+
+}
+
+
+.btn-more {
+
+  display: inline-block;
+
+  background-color: #a67c52;
+
+  color: #fff;
+
+  padding: 10px 100px;
+
+  font-size: 1.375rem;
+
+  letter-spacing: 3px;
+
+}
+
+
+.btn-more:hover {
+
+  background-color: #462e23;
+
+  color: #fff;
+
+}
+
+/* パッケージボックス */
+
+.package-lineup {
+
+  flex-basis: 31%;
+
+}
+
+.package-image {
+
+  display: block;
+
+  margin: 0 auto;
+
+  max-height: 332px;
+
+  margin-bottom: 20px;
+
+}
+
+.package-title {
+
+  margin-bottom: 10px;
+
+  letter-spacing: 2px;
+
+}
+
+.package-value {
+
+  color: #7d5226;
+
+  font-weight: bold;
+
+  letter-spacing: 2px;
+
+  margin-bottom: 20px;
+
+}
+
+/* パッケージエリア */
+
+.package-select {
+
+  width: 100%;
+
+  margin-bottom: 10px;
+
+}
+
+.purchase-number {
+
+  margin-bottom: 20px;
+
+}
+
+.number {
+
+  width: 50px;
+
+}
+
+/*購入フォームにはCSS設定が必要ないので記述なし*/
+
+/*** 「カートに入れる」ボタン設定するよ ***/
+
+.select-cart {
+
+  /* .select-cart aではなく全体.select-cartに設定してボタンへこませるアクションをつける際に縦幅が変わるのを防ぐ */
+
+  margin-bottom: 30px;
+
+  height: 54px;
+
+}
+
+.select-cart a {
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  width: 100%;
+
+  height: 50px;
+
+  background: #586fc8;
+
+  filter: drop-shadow(0px 4px 0px #243f81);
+  /*  ボタンに影つけるためにfilter使うよ*/
+
+  font-size: 1.25rem;
+
+  color: #fff;
+
+  margin-bottom: 4px;
+
+  transition: 0s;
+  /* aタグ共通でtransitionを0.6秒に指定してすが、今回はマウスオン時の動きはっきりさせるために0秒にするよ */
+
+}
+
+.select-cart a:hover {
+
+  filter: none;
+  height: 54px;
+  margin-bottom: 0;
+  transition: 0s;
+  /* マウスオン時（.select-cart a: hover）にボタンをヘコませるスタイルを記述。⑤にて「filter」でつけた影を非表示（none）にし、影だった縦幅「height」を50px+4px（54px）にしてボタン範囲を伸ばす動作をさせる */
+
+}
+
+#store {
+  background: #e4ecef;
+}
+
+.map-image,
+.cafe-text {
+  flex-basis: 48%;
+}
+
+.store-name {
+
+  font-size: 1.25rem;
+
+  letter-spacing: 2px;
+
+  font-weight: bold;
+
+  margin-bottom: 30px;
+
+}
+
+.address {
+
+  letter-spacing: 1px;
+
+  line-height: 1.8;
+
+}
+
+.store-address {
+
+  color: #624649;
+  /*電話番号のaタグがデフォルトだと青字なので文字色をできストと同じ色に変更するよ*/
+}
+
+/*** お問い合わせエリア ***/
+
+#contact {
+
+  background: #e0c5a8;
+
+}
+
+form {
+
+  margin: 0 auto;
+
+  max-width: 500px;
+
+}
+
+.ct-block {
+
+  margin-bottom: 32px;
+
+}
+
+/*入力フォーム作っていくよ*/
+.contact-text {
+
+  display: block;
+
+  font-weight: bold;
+
+  margin-bottom: 10px;
+
+}
+
+.form-name,
+
+.form-mail,
+
+.cp-howto select {
+
+  border: 1px solid #b1b1b1;
+
+  width: 100%;
+
+  height: 40px;
+
+  padding: 0 10px;
+
+  background: #fff;
+
+}
+
+textarea {
+
+  border: 1px solid #b1b1b1;
+
+  width: 100%;
+
+  padding: 10px;
+
+  margin-bottom: 20px;
+
+  background: #fff;
+
+}
+
+/* セレクトボックスのCSS */
+.cp-howto {
+
+  position: relative;
+  /* 子要素で「▼」をつけるため、relativeを指定します */
+
+  border: 1px solid #b1b1b1;
+
+  background: #fff;
+
+}
+
+/*「▼」をつける部分になるよ */
+.cp-howto::before {
+
+  position: absolute;
+
+  top: 14px;
+
+  right: 10px;
+
+  content: '';
+  /* 「:before」「:after」の擬似要素でコンテンツを表示させる際はこちらをつけます */
+
+  /* 「▼」を3つのボーダーで描きます */
+
+  border-left: 8px solid transparent;
+
+  border-right: 8px solid transparent;
+
+  border-top: 13px solid #666;
+
+}
+
+.cp-howto select {
+
+  /* 不要な表示内容を全て非表示にします */
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  background-image: none;
+
+  box-shadow: none;
+
+  -webkit-appearance: none;
+
+  appearance: none;
+
+  padding: 10px 40px 10px 10px;
+  /* 「▼」の分、内側に余白をつけます */
+
+}
+
+/* Internet Explorer用の記述です */
+
+.cp-howto select::-ms-expand {
+
+  display: none;
+
+}
+
+/* 送信ボタンのCSS */
+.send-button {
+
+  display: block;
+
+  background-color: #7d5226;
+
+  font-size: 1.375rem;
+
+  padding: 10px 120px;
+
+  margin: 0 auto;
+
+  color: #fff;
+
+  transition: 0.6s;
+
+}
+
+/* マウスオンの時の設定 */
+.send-button:hover {
+
+  background-color: #fff;
+
+  color: #7d5226;
+
+  transition: 0.6s;
+
+}
+
+/*** footerの設定 ***/
+footer {
+
+  background: #a67c52;
+  color: #fff;
+
+}
+
+.footer-content {
+
+  display: flex;
+
+  flex-wrap: nowrap;
+  /*折り返さない設定 */
+
+  justify-content: space-around;
+  /* 横並びの設定、両端を基準に均等な間隔に設定 */
+
+  margin: 0 auto;
+
+  padding: 40px 0;
+
+}
+
+.footer-content a {
+
+  color: #fff;
+
+}
+
+.footer-content a:hover {
+
+  color: #624649;
+
+}
+
+/* コンテンツエリアのCSS */
+.logo-wrapper {
+
+  flex-grow: 2;
+
+}
+
+.menu {
+
+  flex-grow: 1;
+
+}
+
+/* ロゴエリアのCSS */
+/* ロゴ */
+.logo {
+
+  display: block;
+
+  font-size: 3rem;
+
+  font-family: 'Libre Baskerville', serif;
+
+  /* Googleフォントの設定*/
+  letter-spacing: 6px;
+
+  margin-bottom: 10px;
+
+}
+
+/*SNS*/
+.sns-block {
+
+  display: flex;
+
+  justify-content: flex-start;
+
+  align-items: center;
+
+}
+
+.mark {
+
+  margin-right: 1rem;
+
+}
+
+/* メニューのCSS */
+.menu ul li {
+
+  letter-spacing: 2px;
+
+  margin-bottom: 20px;
+
+}
+
+footer small {
+  padding-bottom: 20px;
+
+  display: block;
+
+  text-align: center;
+
+}
+
+/* ここからスマホ版のコード まずはメディアクエリの設定から*/
+
+@media screen and (max-width:768px) {
+
+
+
+  /*** スマホ版共通パーツ ***/
+
+  .container {
+
+    overflow-x: hidden;
+
+  }
+
+  /*テキストエリアを調整する*/
+
+  h1 {
+
+    font-size: 2.5rem;
+
+    letter-spacing: 3px;
+
+    text-align: center;
+
+  }
+
+  #concept,
+  #feature,
+  #thought,
+  #coffeelife,
+  #lineup,
+  #package,
+  #store,
+  #contact {
+
+    padding: 60px 0;
+
+  }
+
+  /* ファーストビュー */
+
+  .mv-right {
+
+    position: relative;
+
+    top: 0;
+
+    right: 0;
+
+  }
+
+  .text {
+
+    font-size: 1rem;
+
+    margin-bottom: 30px;
+
+    letter-spacing: 2px;
+
+  }
+
+  /***グローバルナビ***/
+  .g-navi {
+
+    display: none;
+
+  }
+
+  /*PC画面用のグローバルナビは使えないから非表示*/
+  /*もともと記述していた.g-naviをコメントアウト
+  .g-navi {
+
+    display: none;
+
+  }*/
+
+  /*ハンバーガーメニュー起動時の画面*/
+
+  /*ナビメニューのスタイルを指定*/
+  .g-navi {
+
+    display: block;
+
+    position: fixed;
+
+    z-index: 2;
+
+    padding-top: 60px;
+
+    transform: translateY(-100%);
+
+    transition: .5s ease-in-out;
+
+    height: 100vh;
+
+  }
+
+
+
+  .g-navi ul {
+
+    display: block;
+
+  }
+
+
+
+  .g-navi.active {
+
+    transform: translateY(0%);
+
+    transition: .5s ease-in-out;
+
+  }
+
+
+  .g-navi-sp {
+
+    position: fixed;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    background-color: #a67c52;
+
+    width: 100%;
+
+    height: 60px;
+
+    padding: 4%;
+
+    z-index: 3;
+    /* ヘッダーエリアは他コンテンツよりも重ね順を前にするため「z-index」を3と設定 */
+
+  }
+
+
+  /*** ロゴエリア ***/
+  /* 文字スタイルを調整 */
+
+  .sp-logo {
+
+    font-size: 1.5rem;
+
+    color: #fff;
+
+    letter-spacing: 3px;
+
+    font-family: 'Libre Baskerville', serif;
+
+  }
+
+
+
+  /*** ハンバーガーメニュー ***/
+  /* ハンバーガーメニュー（.menu-trigger）の幅と高さを設定し、カーソル設定「cursor」を指差し（pointer）に指定 */
+
+  .menu-trigger {
+
+    position: relative;
+
+    width: 30px;
+
+    height: 42px;
+
+    cursor: pointer;
+
+  }
+
+  /* 同じサイズの線を三本配置するために「position」を（absolute）にし、白線を3pxに設定
+ タップ時のアクションを後ほどつけるため動画時間を0.35sで滑らかに動くように（ease-in-out）に設定*/
+
+  .menu-trigger span {
+
+    display: block;
+
+    position: absolute;
+
+    width: 30px;
+
+    border-bottom: solid 3px #fff;
+
+    border-radius: 3px;
+
+    transition: .35s ease-in-out;
+
+  }
+
+
+  /** ハンバーガーボタン **/
+  /* 最後に白線の位置を、上部からの距離「top」を使って配置 */
+  .menu-trigger span:nth-child(1) {
+
+    top: 6px;
+
+  }
+
+  .menu-trigger span:nth-child(2) {
+
+    top: 18px;
+
+  }
+
+  .menu-trigger span:nth-child(3) {
+
+    top: 30px;
+
+  }
+
+  /* 1番上のspan要素をマイナス45度方向に回す */
+  /* 1本目のspanタグ（.menu-trigger.active span:nth-child(1)）の横棒を「transform: rotate(-45deg);
+  」で−45度傾けます。（.menu-trigger span）に対して「position:absolute;
+  」を設定しているので、topプロパティのみ記述 */
+
+  .menu-trigger.active span:nth-child(1) {
+
+    top: 18px;
+
+    transform: rotate(-45deg);
+
+  }
+
+  /* 2番目と3番目のspan要素を45度方向に回す */
+  /*2本目と3本目のspanタグを「transform: rotate(45deg);  」で45度傾け、topプロパティを1本目と同じ18pxに設定します。これでバツマークの完成*/
+
+
+  .menu-trigger.active span:nth-child(2),
+
+  .menu-trigger.active span:nth-child(3) {
+
+    top: 18px;
+
+    transform: rotate(45deg);
+
+  }
+
+  /***メインビジュアルエリアの調整***/
+  #main-visual {
+
+    background-image: url(../image/sp-mv.jpg);
+    /* スマホ画面用の画像に差し替える */
+
+    height: 900px;
+    /* 差し替えた画像に合わせて調整・変更 */
+
+    max-height: inherit;
+
+    padding-top: 60px;
+    /* 上からの余白を指定して背景画像がちゃんと表示されるようにする */
+
+  }
+
+
+
+  /* 画面中央にコンテンツエリアを表示するためFlexboxを使う */
+
+  .mv-wrapper {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    height: 100%;
+
+  }
+
+  /*** コンセプトエリア ***/
+  /*もともとwidth:autoだったけど、はみ出るから100％にして横幅いっぱいで表示 */
+  .concept-img {
+
+    width: 100%;
+
+  }
+
+  .concept-img img {
+
+    max-width: 100%;
+
+  }
+
+  /*** こだわりエリア ***/
+  .feature-wrapper {
+
+    flex-wrap: wrap;
+    /* 折り返しを設定 */
+
+  }
+
+  .feature-box {
+
+    margin-bottom: 20px;
+    /* スマホ版は縦並びにするからbottomに余白つける */
+
+    max-width: inherit;
+    /* inheritは受け継ぐの意味。 */
+
+  }
+
+  .feature-image {
+
+    width: 100%;
+    /* 上でinheritにしたから追随して画面Maxに合わせるはず */
+
+  }
+
+  /*** 想いのエリア ***/
+  .staff-box {
+
+    display: block;
+    /* displayをflexboxからblockにする */
+
+    background: none;
+    /* スマホ画面では背景がテキストエリア飲みになるから、背景を非表示 */
+
+    padding: 0 2rem 2rem 2rem;
+    /* 背景を非表示にしてpaddingの調整をする。今回は左右下だけスマホ画面に合わせた余白にして、上だけタイトルとの間隔があかないよう0に設定 */
+
+  }
+
+  .staff-box {
+
+    display: none;
+
+  }
+
+  .staff-box.active {
+
+    display: block;
+
+    background: none;
+
+    padding: 0 2rem 2rem 2rem;
+
+  }
+
+  .staff-image {
+
+    width: 100%;
+    /* スマホ画面では画像幅いっぱいに表示されるため、画像の横幅を100％にする */
+
+    margin-bottom: 15px;
+    /* 縦並びになっている画像とテキストエリアの間に感覚をあける必要がある。 */
+
+  }
+
+  /* 想いのエリアのテキストエリア */
+  .staff-text {
+
+    width: 100%;
+    /* コンテンツ幅いっぱいに表示されるよう設定 */
+
+    background: #e0c5a8;
+    /* PC画面では、コンテンツエリア全体にかかっていた背景色をテキストエリア飲みに着けるために背景色をここで設定する */
+
+    padding: 15px 10px 10px;
+    /* 上だけ広めにとる */
+
+  }
+
+  /* 見出しを左寄せに変更し行間やテキスト下の余白を調整する */
+
+  .staff-title {
+
+    text-align: left;
+
+    margin-bottom: 15px;
+
+    line-height: 1.8;
+
+  }
+
+  /* paddingとmargin-bottomを調整 */
+
+  .staff-about {
+
+    margin-bottom: 10px;
+
+    padding: 10px;
+
+  }
+
+  /* 戻る・進むボタンの大きさを調整して48px→30pxへ */
+  .slide-button {
+
+    width: 30px;
+
+    height: 30px;
+
+  }
+
+  /*** コーヒーライフのエリア ***/
+  .life-wrapper {
+
+    flex-wrap: wrap;
+
+  }
+
+  /*コンテンツエリアでは、子要素のライフボックスを横並びにするためにFlexboxを使用しつつ、折り返し設定flex-wrapをwrapに変更する */
+
+  .life-type {
+
+    flex-basis: 47%;
+    /* ライフボックスを２列にして間に余白を開けるために横幅を47%に設定 */
+
+    margin-bottom: 20px;
+    /* ライフボックスの下部を20px */
+
+  }
+
+  .life-type a {
+
+    padding: 0;
+    /*ボックスリンクのpaddingを0に */
+
+  }
+
+  /*** ラインナップエリア ***/
+  .lineup-menu {
+
+    margin-bottom: 0;
+    /* margin-bottomを0に設定 */
+
+  }
+
+  .lineup-menu ul {
+
+    flex-wrap: wrap;
+    /* 折り返し設定 */
+
+    border-bottom: none;
+    /* メニューリストに着けて知多河川が、折り返しをつけるとデザイン通りにならないため非表示にし、子要素の各メニュー(lineup-menu ul li)に対して下線をつける */
+
+  }
+
+  .lineup-menu ul li {
+
+    flex-basis: 50%;
+    /* 各メニューを２列で表示するため横幅を50％に設定 */
+
+    border-bottom: 2px solid #a67c52;
+
+    margin-bottom: 20px;
+
+  }
+
+  /* border-radiusを上下左右5pxに、paddingを上下6pxに設定 */
+
+  .lineup-menu ul li a {
+
+    border-radius: 5px;
+
+    padding: 6px 0;
+
+  }
+
+  .lineup-wrapper {
+
+    flex-wrap: wrap;
+    /* １列にしたいから折り返し設定 */
+
+  }
+
+  /* 横幅flex-basisを100％で設定。また縦１列だとボックスの下の余白margin-bottomが必要なので40px */
+
+  .lineup-product {
+
+    flex-basis: 100%;
+
+    margin-bottom: 40px;
+
+  }
+
+  /* 画像はPC画面より少し横幅を狭くしたいため、上下内側の余白paddingを3rem(48px)に変更 */
+
+  .lineup-image {
+
+    padding: 3rem 0;
+
+  }
+
+  /* moreのボタンの余白が開きすぎるから0に設定*/
+  .more-lineup {
+
+    margin-top: 0;
+
+  }
+
+  /*** パッケージエリア ***/
+  /* PC画面では３列のところを１列にするために折り返し設定する */
+  .package-wrapper {
+
+    flex-wrap: wrap;
+
+  }
+
+  /* 横幅flex-basisを100％、margin-bottomを60pxに設定 */
+  .package-lineup {
+
+    flex-basis: 100%;
+
+    margin-bottom: 60px;
+
+  }
+
+  /* 下に余白が空きすぎるから0に設定 */
+  .package-lineup:last-child {
+
+    margin-bottom: 0;
+
+  }
+
+  /*** ストアエリア ***/
+  .store-wrapper {
+
+    flex-wrap: wrap;
+    /* PC画面では横並びのところを１列にするから折り返し設定 */
+
+  }
+
+  .map-image,
+  .cafe-text {
+
+    flex-basis: 100%;
+    /* 横幅100％に設定 */
+
+  }
+
+  /* 高さを200pxに設定し、下部を30pxに設定 */
+  .map-image {
+
+    height: 200px;
+
+    margin-bottom: 30px;
+
+  }
+
+  .cafe-text {
+
+    text-align: center;
+    /* 文字位置を中央寄せに設定 */
+
+  }
+
+  .store-name {
+
+    margin-bottom: 20px;
+
+  }
+
+  .address {
+
+    line-height: 2.4;
+
+  }
+
+  /*** フッターエリア ***/
+  .footer-content {
+
+    text-align: center;
+    /* テキスト配置を中央寄せに設定 */
+
+    flex-wrap: wrap;
+    /* コンテンツエリアに折り返しの設定 */
+
+  }
+
+  /* 今回はすべて同じ横幅で１列に並べるため、伸び率flex-growを2から1に変更 */
+
+  .logo-wrapper {
+
+    flex-grow: 1;
+
+    flex-basis: 100%;
+
+  }
+
+  /* 文字サイズを2rem(36px) margin-bottomを20pxで設定 */
+
+  .logo {
+
+    font-size: 2rem;
+
+    margin-bottom: 20px;
+
+  }
+
+  /* 中央寄せにしてmargin-bottomを40pxに設定 */
+
+  .sns-block {
+
+    justify-content: center;
+
+    margin-bottom: 40px;
+
+  }
+
+  /*** メニューエリア ***/
+  .menu {
+
+    flex-basis: 100%;
+    /* 横幅の設定 */
+
+    margin-bottom: 20px;
+
+  }
+
+  .menu:last-child {
+
+    margin-bottom: 0;
+
+  }
+
+  .menu ul li {
+
+    margin-bottom: 10px;
+
+  }
+
+
+}
+
+/* モーダルのスタイル */
+
+.modal-main {
+
+  /* ① モーダルウィンドウを非表示にする。*/
+
+  display: none;
+
+}
+
+
+
+.modal-inner {
+
+  /* ② モーダル背景を画面幅いっぱいに設定し、位置を固定する。 */
+
+  overflow-y: scroll;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  width: 100%;
+
+  height: 100%;
+
+  background-color: #ffffff;
+
+  color: #666666;
+
+  position: fixed;
+
+  top: 0;
+
+  left: 0;
+
+  z-index: 2;
+
+}
+
+
+
+.inner-content {
+
+  /* ③ モーダル内の要素全体の子要素を中央揃えにする。 */
+
+  text-align: center;
+
+  margin: 0;
+
+  padding: 0;
+
+  max-width: 1024px;
+
+}
+
+
+
+.modal-inner img {
+
+  /* ④ モーダル画像の幅は親要素（.modal-inner）の100%に設定。 */
+
+  width: 100%;
+
+  margin: 0 auto;
+
+  margin-bottom: 10px;
+
+}
+
+
+
+.inner-title {
+
+  /* ⑤ タイトルは上下方向の他要素との間隔を調整。 */
+
+  margin-top: 40px;
+
+  margin-bottom: 32px;
+
+  font-size: 2.8rem;
+
+  font-weight: bold;
+
+}
+
+
+
+.inner-text {
+
+  /* ⑥紹介文の文字サイズの設定・表示領域は70%で設定し、他要素との間隔調整。 */
+
+  font-size: 1.6rem;
+
+  width: 70%;
+
+  text-align: center;
+
+  margin: 0 auto;
+
+  margin-bottom: 20px;
+
+}
+
+
+
+.modalClose {
+
+  /* ⑦ カーソル設定をします。（.send-button）というお問い合わせボタンで使用したクラスを反映しているので、その他のスタイルは自動的に反映される。 */
+
+  cursor: pointer;
+
+}
